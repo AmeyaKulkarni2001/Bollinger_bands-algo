@@ -4,14 +4,14 @@ import uvicorn
 from dotenv import load_dotenv
 import pandas as pd
 import time
-import logging
+# import logging
 import threading
 import os
 
 load_dotenv()
 
-logger = logging.getLogger(__name__)
-logging.basicConfig(filename='tesing.log', encoding='utf-8', level=logging.INFO)
+# logger = logging.getLogger(__name__)
+# logging.basicConfig(filename='tesing.log', encoding='utf-8', level=logging.INFO)
 
 # Initialize exchange
 exchange = ccxt.binance({
@@ -155,7 +155,7 @@ def scalping_bot():
                         "entry_price" : last_close
                     })
                     print(f"*************Buy Signal - Price: {last_close} take profit {take_profit} stop loss {stop_loss}*************")
-                    logging.info(f"*************Buy Signal - Price: {last_close} take profit {take_profit} stop loss {stop_loss}*************")
+                    # logging.info(f"*************Buy Signal - Price: {last_close} take profit {take_profit} stop loss {stop_loss}*************")
 
 
                 elif last_close > upper_band - 50 and rsi > 63 and macd < signal_line:
@@ -173,7 +173,7 @@ def scalping_bot():
                         "entry_price" : last_close
                     })
                     print(f"*************Sell Signal - Price: {last_close} take profit {take_profit} stop loss {stop_loss}*************")
-                    logging.info(f"*************Sell Signal - Price: {last_close} take profit {take_profit} stop loss {stop_loss}*************")
+                    # logging.info(f"*************Sell Signal - Price: {last_close} take profit {take_profit} stop loss {stop_loss}*************")
 
                 else:
                     print(f"Lower Band: {lower_band} <Current price {last_close}> Upper Band: {upper_band} 36 < {rsi} < 63  macd {macd} signal line {signal_line}")
@@ -200,7 +200,7 @@ def scalping_bot():
                         "take_profit" : None,
                         "entry_price" : None
                     })
-                    logging.info(f"Profit = {last_close - entry_price}")
+                    # logging.info(f"Profit = {last_close - entry_price}")
                     position = None
                 elif last_close <= stop_loss:
                     place_sell_order(symbol, quantity)
@@ -213,7 +213,7 @@ def scalping_bot():
                         "take_profit" : None,
                         "entry_price" : None
                     })
-                    logging.info(f"Loss = {last_close - entry_price}")
+                    # logging.info(f"Loss = {last_close - entry_price}")
                     position = None
                 else:
                     print(f"Long position maintained take profit {take_profit} stop loss {stop_loss} last close {last_close}")
@@ -236,7 +236,7 @@ def scalping_bot():
                         "take_profit" : None,
                         "entry_price" : None
                     })
-                    logging.info(f"Profit = {entry_price - last_close}")
+                    # logging.info(f"Profit = {entry_price - last_close}")
                     position = None
                 elif last_close >= stop_loss:
                     place_buy_order(symbol, quantity)
@@ -249,7 +249,7 @@ def scalping_bot():
                         "take_profit" : None,
                         "entry_price" : None
                     })
-                    logging.info(f"Loss = {entry_price - last_close}")
+                    # logging.info(f"Loss = {entry_price - last_close}")
                     position = None
                 else:
                     print(f"short position maintained take profit {take_profit} stop loss {stop_loss} last close {last_close}")
@@ -281,8 +281,8 @@ def start_bot():
     return {"message": "Bot started."}
 
 # Run the bot
-# if __name__ == "__main__":
-#     # threading.Thread(target=scalping_bot, daemon=True).start()
-#     port = int(os.getenv("PORT", 8000))
-#     uvicorn.run(app, host="0.0.0.0", port=port)
+if __name__ == "__main__":
+    # threading.Thread(target=scalping_bot, daemon=True).start()
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
 
