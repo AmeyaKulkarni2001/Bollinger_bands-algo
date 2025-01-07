@@ -259,6 +259,9 @@ def scalping_bot():
             print(f"Error: {e}")
             exit(1)
 
+@app.get("/")
+def home():
+    return {"message": "App is running check out /status for more information"}
 
 # API Endpoints
 @app.get("/status")
@@ -279,7 +282,7 @@ def start_bot():
 
 # Run the bot
 if __name__ == "__main__":
-    threading.Thread(target=scalping_bot, daemon=True).start()
+    # threading.Thread(target=scalping_bot, daemon=True).start()
     port = int(os.getenv("PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
 
