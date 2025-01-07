@@ -1,5 +1,5 @@
 ccxt
 FastAPI
 uvicorn
-dotenv
+python-dotenv
 pandas
